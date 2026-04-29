@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<robot name="wheeled_legged_dog_v3">
+<robot name="thunder_v3">
   <link name="base_link">
     <inertial>
       <origin xyz="-0.00111 0.00718 0.07632" rpy="0 0 0" />
