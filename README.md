@@ -6,6 +6,7 @@ This repository contains the standalone Thunder v3 wheeled-leg robot asset used 
 
 - `meshes/` contains the STL visual and collision mesh files referenced by the robot description.
 - `urdf/thunder_v3.urdf` is the primary URDF used by RobotLab and Isaac Lab.
+- `urdf/legacy/thunder_0131copy.urdf` is a preserved legacy reference URDF from the January 31 copy line. It is not the primary training asset.
 - `xml/thunder_v3.xml` is an XML-extension copy of the same robot description for tools that expect `.xml` files. Keep it synchronized with `urdf/thunder_v3.urdf`.
 
 ## Joint Configuration Notes
@@ -29,6 +30,21 @@ The fixed URDF keeps the wheel joints continuous and gives the leg joints nonzer
 - leg joint velocity: `17.48`
 - front/right and rear/left calf joints use positive calf ranges
 - front/left and rear/right calf joints use negative calf ranges
+
+## Legacy URDF Notes
+
+`urdf/legacy/thunder_0131copy.urdf` is archived for comparison only. Its wheel joint axes match the current primary URDF:
+
+- `FR_foot_joint`: `0 1 0`
+- `FL_foot_joint`: `0 -1 0`
+- `RR_foot_joint`: `0 1 0`
+- `RL_foot_joint`: `0 -1 0`
+
+Known differences from `urdf/thunder_v3.urdf`:
+
+- wheel/foot mass is `1.78294 kg` per link instead of `0.32377 kg`
+- rear calf limits are wider on the legacy copy
+- `RR_hip` diagonal inertia is asymmetric relative to the other hip links, so do not copy its inertial values into the primary asset without checking CAD/source measurements
 
 RobotLab then maps the joints to actuators as follows:
 
