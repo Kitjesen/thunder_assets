@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<robot name="thunder_v3">
+<robot name="轮足狗机器人v3">
   <link name="base_link">
     <inertial>
       <origin xyz="-0.00111 0.00718 0.07632" rpy="0 0 0" />
@@ -9,7 +9,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../meshes/base_link.STL" />
+        <mesh filename="package://轮足狗机器人v3/meshes/base_link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
@@ -46,7 +46,8 @@
       </geometry>
     </collision>
   </link>
-  <link name="FR_hip">
+
+  <link name="fr_hip_Link">
     <inertial>
       <origin xyz="0.06964 -0.04836 0.00073" rpy="0 0 0" />
       <mass value="1.78126" />
@@ -55,7 +56,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../meshes/fr_hip_Link.STL" />
+        <mesh filename="package://轮足狗机器人v3/meshes/fr_hip_Link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
@@ -68,14 +69,14 @@
       </geometry>
     </collision>
   </link>
-  <joint name="FR_hip_joint" type="revolute">
+  <joint name="fr_hip_joint" type="revolute">
     <origin xyz="0.2395 -0.065 0.08065" rpy="0 0 0" />
     <parent link="base_link" />
-    <child link="FR_hip" />
+    <child link="fr_hip_Link" />
     <axis xyz="-1 0 0" />
-    <limit lower="-0.41" upper="0.41" effort="120" velocity="17.48" />
+    <limit lower="-0.41" upper="0.41" effort="0" velocity="0" />
   </joint>
-  <link name="FR_thigh">
+  <link name="fr_thigh_Link">
     <inertial>
       <origin xyz="-0.19519 -0.02855 -0.01131" rpy="0 0 0" />
       <mass value="2.40982" />
@@ -84,7 +85,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../meshes/fr_thigh_Link.STL" />
+        <mesh filename="package://轮足狗机器人v3/meshes/fr_thigh_Link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
@@ -109,14 +110,14 @@
       </geometry>
     </collision>
   </link>
-  <joint name="FR_thigh_joint" type="revolute">
+  <joint name="fr_thigh_joint" type="revolute">
     <origin xyz="0.078 -0.0795 0" rpy="0 0 0" />
-    <parent link="FR_hip" />
-    <child link="FR_thigh" />
+    <parent link="fr_hip_Link" />
+    <child link="fr_thigh_Link" />
     <axis xyz="0 1 0" />
-    <limit lower="-3.14" upper="0" effort="120" velocity="17.48" />
+    <limit lower="-3.14" upper="0" effort="0" velocity="0" />
   </joint>
-  <link name="FR_calf">
+  <link name="fr_calf_Link">
     <inertial>
       <origin xyz="0.17379 -0.02895 0.03734" rpy="0 0 0" />
       <mass value="1.89384" />
@@ -125,7 +126,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../meshes/fr_calf_Link.STL" />
+        <mesh filename="package://轮足狗机器人v3/meshes/fr_calf_Link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
@@ -150,14 +151,14 @@
       </geometry>
     </collision>
   </link>
-  <joint name="FR_calf_joint" type="revolute">
+  <joint name="fr_calf_joint" type="revolute">
     <origin xyz="-0.24954 -0.057 -0.01515" rpy="0 0 0" />
-    <parent link="FR_thigh" />
-    <child link="FR_calf" />
+    <parent link="fr_thigh_Link" />
+    <child link="fr_calf_Link" />
     <axis xyz="0 1 0" />
-    <limit lower="0" upper="3.14" effort="120" velocity="17.48" />
+    <limit lower="0" upper="3.14" effort="0" velocity="0" />
   </joint>
-  <link name="FR_foot">
+  <link name="fr_foot_Link">
     <inertial>
       <origin xyz="0.00000 -0.01385 0.00000" rpy="0 0 0" />
       <mass value="1.40377" />
@@ -166,7 +167,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../meshes/fr_foot_Link.STL" />
+        <mesh filename="package://轮足狗机器人v3/meshes/fr_foot_Link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
@@ -179,13 +180,15 @@
       </geometry>
     </collision>
   </link>
-  <joint name="FR_foot_joint" type="continuous">
+  <joint name="fr_foot_joint" type="continuous">
     <origin xyz="0.24443 -0.061 0.0525" rpy="0 0 0" />
-    <parent link="FR_calf" />
-    <child link="FR_foot" />
+    <parent link="fr_calf_Link" />
+    <child link="fr_foot_Link" />
     <axis xyz="0 1 0" />
+    <limit effort="0" velocity="0" />
   </joint>
-  <link name="FL_hip">
+
+  <link name="fl_hip_Link">
     <inertial>
       <origin xyz="0.06964 0.04836 -0.00073" rpy="0 0 0" />
       <mass value="1.78126" />
@@ -194,7 +197,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../meshes/fl_hip_Link.STL" />
+        <mesh filename="package://轮足狗机器人v3/meshes/fl_hip_Link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
@@ -207,14 +210,14 @@
       </geometry>
     </collision>
   </link>
-  <joint name="FL_hip_joint" type="revolute">
+  <joint name="fl_hip_joint" type="revolute">
     <origin xyz="0.2395 0.065 0.08065" rpy="0 0 0" />
     <parent link="base_link" />
-    <child link="FL_hip" />
+    <child link="fl_hip_Link" />
     <axis xyz="-1 0 0" />
-    <limit lower="-0.41" upper="0.41" effort="120" velocity="17.48" />
+    <limit lower="-0.41" upper="0.41" effort="0" velocity="0" />
   </joint>
-  <link name="FL_thigh">
+  <link name="fl_thigh_Link">
     <inertial>
       <origin xyz="-0.19484 0.02855 -0.01176" rpy="0 0 0" />
       <mass value="2.40982" />
@@ -223,7 +226,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../meshes/fl_thigh_Link.STL" />
+        <mesh filename="package://轮足狗机器人v3/meshes/fl_thigh_Link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
@@ -248,14 +251,14 @@
       </geometry>
     </collision>
   </link>
-  <joint name="FL_thigh_joint" type="revolute">
+  <joint name="fl_thigh_joint" type="revolute">
     <origin xyz="0.078 0.0795 0" rpy="0 0 0" />
-    <parent link="FL_hip" />
-    <child link="FL_thigh" />
+    <parent link="fl_hip_Link" />
+    <child link="fl_thigh_Link" />
     <axis xyz="0 -1 0" />
-    <limit lower="0" upper="3.14" effort="120" velocity="17.48" />
+    <limit lower="0" upper="3.14" effort="0" velocity="0" />
   </joint>
-  <link name="FL_calf">
+  <link name="fl_calf_Link">
     <inertial>
       <origin xyz="0.17384 0.02895 0.03735" rpy="0 0 0" />
       <mass value="1.89384" />
@@ -264,7 +267,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../meshes/fl_calf_Link.STL" />
+        <mesh filename="package://轮足狗机器人v3/meshes/fl_calf_Link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
@@ -289,14 +292,14 @@
       </geometry>
     </collision>
   </link>
-  <joint name="FL_calf_joint" type="revolute">
+  <joint name="fl_calf_joint" type="revolute">
     <origin xyz="-0.24954 0.057 -0.01515" rpy="0 0 0" />
-    <parent link="FL_thigh" />
-    <child link="FL_calf" />
+    <parent link="fl_thigh_Link" />
+    <child link="fl_calf_Link" />
     <axis xyz="0 -1 0" />
-    <limit lower="-3.14" upper="0" effort="120" velocity="17.48" />
+    <limit lower="-3.14" upper="0" effort="0" velocity="0" />
   </joint>
-  <link name="FL_foot">
+  <link name="fl_foot_Link">
     <inertial>
       <origin xyz="0.00000 0.01385 0.00000" rpy="0 0 0" />
       <mass value="1.40377" />
@@ -305,7 +308,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../meshes/fl_foot_Link.STL" />
+        <mesh filename="package://轮足狗机器人v3/meshes/fl_foot_Link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
@@ -318,13 +321,15 @@
       </geometry>
     </collision>
   </link>
-  <joint name="FL_foot_joint" type="continuous">
+  <joint name="fl_foot_joint" type="continuous">
     <origin xyz="0.24443 0.061 0.0525" rpy="0 0 0" />
-    <parent link="FL_calf" />
-    <child link="FL_foot" />
+    <parent link="fl_calf_Link" />
+    <child link="fl_foot_Link" />
     <axis xyz="0 -1 0" />
+    <limit effort="0" velocity="0" />
   </joint>
-  <link name="RR_hip">
+
+  <link name="rr_hip_Link">
     <inertial>
       <origin xyz="-0.06964 -0.04836 -0.00073" rpy="0 0 0" />
       <mass value="1.78126" />
@@ -333,7 +338,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../meshes/rr_hip_Link.STL" />
+        <mesh filename="package://轮足狗机器人v3/meshes/rr_hip_Link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
@@ -346,14 +351,14 @@
       </geometry>
     </collision>
   </link>
-  <joint name="RR_hip_joint" type="revolute">
+  <joint name="rr_hip_joint" type="revolute">
     <origin xyz="-0.2395 -0.065 0.08065" rpy="0 0 0" />
     <parent link="base_link" />
-    <child link="RR_hip" />
+    <child link="rr_hip_Link" />
     <axis xyz="1 0 0" />
-    <limit lower="-0.41" upper="0.41" effort="120" velocity="17.48" />
+    <limit lower="-0.41" upper="0.41" effort="0" velocity="0" />
   </joint>
-  <link name="RR_thigh">
+  <link name="rr_thigh_Link">
     <inertial>
       <origin xyz="0.19483 -0.02855 -0.01178" rpy="0 0 0" />
       <mass value="2.40982" />
@@ -362,7 +367,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../meshes/rr_thigh_Link.STL" />
+        <mesh filename="package://轮足狗机器人v3/meshes/rr_thigh_Link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
@@ -387,14 +392,14 @@
       </geometry>
     </collision>
   </link>
-  <joint name="RR_thigh_joint" type="revolute">
+  <joint name="rr_thigh_joint" type="revolute">
     <origin xyz="-0.078 -0.0795 0" rpy="0 0 0" />
-    <parent link="RR_hip" />
-    <child link="RR_thigh" />
+    <parent link="rr_hip_Link" />
+    <child link="rr_thigh_Link" />
     <axis xyz="0 1 0" />
-    <limit lower="0" upper="3.14" effort="120" velocity="17.48" />
+    <limit lower="0" upper="3.14" effort="0" velocity="0" />
   </joint>
-  <link name="RR_calf">
+  <link name="rr_calf_Link">
     <inertial>
       <origin xyz="-0.17384 -0.02895 0.03735" rpy="0 0 0" />
       <mass value="1.89384" />
@@ -403,7 +408,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../meshes/rr_calf_Link.STL" />
+        <mesh filename="package://轮足狗机器人v3/meshes/rr_calf_Link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
@@ -428,14 +433,14 @@
       </geometry>
     </collision>
   </link>
-  <joint name="RR_calf_joint" type="revolute">
+  <joint name="rr_calf_joint" type="revolute">
     <origin xyz="0.24954 -0.057 -0.01515" rpy="0 0 0" />
-    <parent link="RR_thigh" />
-    <child link="RR_calf" />
+    <parent link="rr_thigh_Link" />
+    <child link="rr_calf_Link" />
     <axis xyz="0 1 0" />
-    <limit lower="-3.14" upper="0" effort="120" velocity="17.48" />
+    <limit lower="-6.28" upper="0" effort="0" velocity="0" />
   </joint>
-  <link name="RR_foot">
+  <link name="rr_foot_Link">
     <inertial>
       <origin xyz="0.00000 -0.01385 0.00000" rpy="0 0 0" />
       <mass value="1.40377" />
@@ -444,7 +449,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../meshes/rr_foot_Link.STL" />
+        <mesh filename="package://轮足狗机器人v3/meshes/rr_foot_Link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
@@ -457,13 +462,15 @@
       </geometry>
     </collision>
   </link>
-  <joint name="RR_foot_joint" type="continuous">
+  <joint name="rr_foot_joint" type="continuous">
     <origin xyz="-0.24443 -0.061 0.0525" rpy="0 0 0" />
-    <parent link="RR_calf" />
-    <child link="RR_foot" />
+    <parent link="rr_calf_Link" />
+    <child link="rr_foot_Link" />
     <axis xyz="0 1 0" />
+    <limit effort="0" velocity="0" />
   </joint>
-  <link name="RL_hip">
+
+  <link name="rl_hip_Link">
     <inertial>
       <origin xyz="-0.06960 0.04836 0.00075" rpy="0 0 0" />
       <mass value="1.78126" />
@@ -472,7 +479,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../meshes/rl_hip_Link.STL" />
+        <mesh filename="package://轮足狗机器人v3/meshes/rl_hip_Link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
@@ -485,14 +492,14 @@
       </geometry>
     </collision>
   </link>
-  <joint name="RL_hip_joint" type="revolute">
+  <joint name="rl_hip_joint" type="revolute">
     <origin xyz="-0.2395 0.065 0.08065" rpy="0 0 0" />
     <parent link="base_link" />
-    <child link="RL_hip" />
+    <child link="rl_hip_Link" />
     <axis xyz="1 0 0" />
-    <limit lower="-0.41" upper="0.41" effort="120" velocity="17.48" />
+    <limit lower="-0.41" upper="0.41" effort="0" velocity="0" />
   </joint>
-  <link name="RL_thigh">
+  <link name="rl_thigh_Link">
     <inertial>
       <origin xyz="0.19519 0.02855 -0.01131" rpy="0 0 0" />
       <mass value="2.40982" />
@@ -501,7 +508,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../meshes/rl_thigh_Link.STL" />
+        <mesh filename="package://轮足狗机器人v3/meshes/rl_thigh_Link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
@@ -526,14 +533,14 @@
       </geometry>
     </collision>
   </link>
-  <joint name="RL_thigh_joint" type="revolute">
+  <joint name="rl_thigh_joint" type="revolute">
     <origin xyz="-0.078 0.0795 0" rpy="0 0 0" />
-    <parent link="RL_hip" />
-    <child link="RL_thigh" />
+    <parent link="rl_hip_Link" />
+    <child link="rl_thigh_Link" />
     <axis xyz="0 -1 0" />
-    <limit lower="-3.14" upper="0" effort="120" velocity="17.48" />
+    <limit lower="-3.14" upper="0" effort="0" velocity="0" />
   </joint>
-  <link name="RL_calf">
+  <link name="rl_calf_Link">
     <inertial>
       <origin xyz="-0.17385 0.02895 0.03733" rpy="0 0 0" />
       <mass value="1.89384" />
@@ -542,7 +549,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../meshes/rl_calf_Link.STL" />
+        <mesh filename="package://轮足狗机器人v3/meshes/rl_calf_Link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
@@ -567,14 +574,14 @@
       </geometry>
     </collision>
   </link>
-  <joint name="RL_calf_joint" type="revolute">
+  <joint name="rl_calf_joint" type="revolute">
     <origin xyz="0.24954 0.057 -0.01515" rpy="0 0 0" />
-    <parent link="RL_thigh" />
-    <child link="RL_calf" />
+    <parent link="rl_thigh_Link" />
+    <child link="rl_calf_Link" />
     <axis xyz="0 -1 0" />
-    <limit lower="0" upper="3.14" effort="120" velocity="17.48" />
+    <limit lower="0" upper="6.28" effort="0" velocity="0" />
   </joint>
-  <link name="RL_foot">
+  <link name="rl_foot_Link">
     <inertial>
       <origin xyz="0.00000 0.01385 0.00000" rpy="0 0 0" />
       <mass value="1.40377" />
@@ -583,7 +590,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../meshes/rl_foot_Link.STL" />
+        <mesh filename="package://轮足狗机器人v3/meshes/rl_foot_Link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
@@ -596,12 +603,14 @@
       </geometry>
     </collision>
   </link>
-  <joint name="RL_foot_joint" type="continuous">
+  <joint name="rl_foot_joint" type="continuous">
     <origin xyz="-0.24443 0.061 0.0525" rpy="0 0 0" />
-    <parent link="RL_calf" />
-    <child link="RL_foot" />
+    <parent link="rl_calf_Link" />
+    <child link="rl_foot_Link" />
     <axis xyz="0 -1 0" />
+    <limit effort="0" velocity="0" />
   </joint>
+
   <link name="lidar1_Link">
     <inertial>
       <origin xyz="-0.00115 -0.00002 -0.00940" rpy="0 0 0" />
@@ -611,7 +620,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../meshes/lidar1_Link.STL" />
+        <mesh filename="package://轮足狗机器人v3/meshes/lidar1_Link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
@@ -624,6 +633,7 @@
     <child link="lidar1_Link" />
     <axis xyz="0 0 0" />
   </joint>
+
   <link name="camera1_Link">
     <inertial>
       <origin xyz="-0.00092 0.00008 -0.01518" rpy="0 0 0" />
@@ -633,7 +643,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../meshes/camera1_Link.STL" />
+        <mesh filename="package://轮足狗机器人v3/meshes/camera1_Link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
@@ -646,6 +656,7 @@
     <child link="camera1_Link" />
     <axis xyz="0 0 0" />
   </joint>
+
   <link name="lidar2_Link">
     <inertial>
       <origin xyz="-0.00115 -0.00002 -0.00940" rpy="0 0 0" />
@@ -655,7 +666,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../meshes/lidar2_Link.STL" />
+        <mesh filename="package://轮足狗机器人v3/meshes/lidar2_Link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
@@ -674,6 +685,7 @@
     <child link="lidar2_Link" />
     <axis xyz="0 0 0" />
   </joint>
+
   <link name="camera2_Link">
     <inertial>
       <origin xyz="-0.00092 -0.00012 -0.01518" rpy="0 0 0" />
@@ -683,7 +695,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../meshes/camera2_Link.STL" />
+        <mesh filename="package://轮足狗机器人v3/meshes/camera2_Link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />

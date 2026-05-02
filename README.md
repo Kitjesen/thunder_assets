@@ -7,7 +7,22 @@ This repository contains the standalone Thunder v3 wheeled-leg robot asset used 
 - `meshes/` contains the STL visual and collision mesh files referenced by the robot description.
 - `urdf/thunder_v3.urdf` is the primary URDF used by RobotLab and Isaac Lab.
 - `urdf/legacy/thunder_0131copy.urdf` is a preserved legacy reference URDF from the January 31 copy line. It is not the primary training asset.
+- `urdf/legacy/thunder_v3_cad_2026-05-02.urdf` is the raw May 2 CAD export used to refresh the primary inertial parameters.
 - `xml/thunder_v3.xml` is an XML-extension copy of the same robot description for tools that expect `.xml` files. Keep it synchronized with `urdf/thunder_v3.urdf`.
+
+## Current Asset Version
+
+Version label: `cad-2026-05-02-symmetric-wheel`
+
+The primary URDF keeps RobotLab-compatible link and joint names while using the May 2 CAD inertial values:
+
+- all four wheel/foot links use fixed mass `1.40377 kg`
+- all four wheel/foot centers of mass and inertia tensors are symmetric
+- calf/thigh inertial origins include the knee-alignment correction from the May 2 CAD export
+- remaining left/right center-of-mass offsets are expected to come from the motor geometry itself; the remaining offset is within about `1.5 mm`, mainly on the z axis
+- y-axis symmetry is preserved for the wheel/foot links
+
+The raw CAD export uses lowercase link names with `_Link` suffixes, package mesh paths, zero effort/velocity metadata, and wheel limit tags. Do not use it directly for RobotLab training unless those fields are adapted first.
 
 ## Joint Configuration Notes
 
@@ -42,7 +57,7 @@ The fixed URDF keeps the wheel joints continuous and gives the leg joints nonzer
 
 Known differences from `urdf/thunder_v3.urdf`:
 
-- wheel/foot mass is `1.78294 kg` per link instead of `0.32377 kg`
+- wheel/foot mass is `1.78294 kg` per link instead of the current `1.40377 kg`
 - rear calf limits are wider on the legacy copy
 - `RR_hip` diagonal inertia is asymmetric relative to the other hip links, so do not copy its inertial values into the primary asset without checking CAD/source measurements
 

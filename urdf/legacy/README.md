@@ -41,3 +41,26 @@ RR_hip diag: 0.00344, 0.00353, 0.00350
 ```
 
 Do not use this file as a drop-in replacement for the primary asset unless those dynamics are intentional.
+
+## `thunder_v3_cad_2026-05-02.urdf`
+
+Version label: `cad-2026-05-02-symmetric-wheel-raw`
+
+Source:
+
+```text
+D:\Tencent\wechat\xwechat_files\wxid_gyuafybcd6u311_9e10\msg\file\2026-05\轮足狗机器人v3.urdf
+```
+
+Status:
+
+- archived as the raw CAD export behind the current primary asset update
+- not a direct RobotLab training file
+- inertial values were copied into `../thunder_v3.urdf` after mapping lowercase CAD names to the canonical RobotLab names
+
+Important adaptation notes:
+
+- The primary URDF keeps canonical names such as `FR_hip`, `FR_foot`, and `FR_hip_joint`.
+- The primary URDF keeps wheel joints continuous and without CAD-exported zero limit tags.
+- The primary URDF keeps leg joint effort `120` and velocity `17.48`; the raw CAD export has `0` for those metadata fields.
+- The primary URDF keeps the existing rear calf limits rather than the wider raw CAD export limits.
