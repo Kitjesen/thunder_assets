@@ -1,6 +1,6 @@
 # Thunder v3 Assets
 
-Current version: `cad-2026-05-02-symmetric-wheel`
+Current version: `cad-2026-05-02-symmetric-wheel-0131-limits`
 
 Primary asset: `urdf/thunder_v3.urdf`
 
@@ -20,6 +20,9 @@ This version updates the robot dynamics data in the primary URDF:
   - tensor: `ixx=0.00092`, `iyy=0.00121`, `izz=0.00092`, off-diagonal terms `0`
 - `FR_calf`, `RR_calf`, and `RR_thigh` COM and inertia tensors were corrected
   from the May 2 CAD-derived values.
+- Leg joint position limits were aligned with the legacy 0131 reference:
+  hip joints use `[-0.4, 0.4]`, and both rear calf joints use
+  `[-3.14, 3.14]`.
 - `xml/thunder_v3.xml` was synchronized with `urdf/thunder_v3.urdf`.
 - The raw CAD export was saved at
   `urdf/legacy/thunder_v3_cad_2026-05-02.urdf` for traceability.
@@ -31,6 +34,7 @@ The primary URDF intentionally keeps the RobotLab-compatible interface:
 - relative mesh paths under `meshes/`
 - continuous wheel joints without position limits
 - leg joint effort `120` and velocity `17.48`
+- legacy 0131 leg position limits without reverting effort/velocity metadata
 
 ## Files
 
@@ -52,7 +56,8 @@ Validated for this version:
 - verified total mass `48.79163 kg`
 - verified `urdf/thunder_v3.urdf` and `xml/thunder_v3.xml` are synchronized
 - verified wheel joints stay continuous
-- verified wheel axes and leg joint effort/velocity metadata
+- verified wheel axes, legacy 0131 leg position limits, and leg joint
+  effort/velocity metadata
 
 Not validated:
 
