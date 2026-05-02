@@ -1,6 +1,6 @@
 # Changelog
 
-## 2026-05-02 - cad-2026-05-02-symmetric-wheel
+## 2026-05-02 - cad-2026-05-02-symmetric-wheel-0131-limits
 
 This release updates the active Thunder v3 simulation asset from the previous
 primary URDF to a CAD-derived inertial model while preserving the RobotLab
@@ -25,8 +25,11 @@ Active files:
   `iyy=0.00121`, `iyz=0.00000`, `izz=0.00092`.
 - `FR_calf`, `RR_calf`, and `RR_thigh` received CAD-derived COM and tensor
   corrections.
-- Canonical RobotLab names, mesh paths, leg joint limits, leg joint
-  effort/velocity metadata, and continuous wheel joints were preserved.
+- Canonical RobotLab names, mesh paths, leg joint effort/velocity metadata,
+  and continuous wheel joints were preserved.
+- Leg joint position limits were aligned with the legacy 0131 reference:
+  hips use `[-0.4, 0.4]`; `RR_calf_joint` and `RL_calf_joint` use
+  `[-3.14, 3.14]`.
 - The raw CAD URDF was archived, but it is not the active training asset.
 
 ### Detailed Inertial Changes
@@ -65,9 +68,11 @@ Validated:
 - verified `urdf/thunder_v3.urdf` and `xml/thunder_v3.xml` are synchronized
 - verified continuous wheel joints, wheel axes, and leg joint
   effort/velocity metadata
+- verified legacy 0131 leg position limits while keeping current
+  effort/velocity metadata
 - verified the RobotLab copy
-  `data/Robots/thunder_v3_assets/urdf/thunder_v3_cad_inertia.urdf` matches this
-  primary asset exactly
+  `data/Robots/thunder_v3_assets/urdf/thunder_v3_cad_inertia.urdf` uses the
+  same 21 inertial blocks while keeping RobotLab-specific asset packaging
 
 Not validated:
 
