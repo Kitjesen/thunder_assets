@@ -40,6 +40,8 @@ The primary URDF intentionally keeps the RobotLab-compatible interface:
 
 - `urdf/thunder_v3.urdf`: current RobotLab/Isaac Lab URDF
 - `xml/thunder_v3.xml`: byte-synchronized copy for tools that expect `.xml`
+- `mjcf/thunder_v3_mujoco.xml`: MuJoCo MJCF generated from the current URDF
+  for local policy rollout and sim-to-sim checks
 - `meshes/`: STL visual and collision meshes
 - `urdf/legacy/`: historical references only, not the active training asset
 
