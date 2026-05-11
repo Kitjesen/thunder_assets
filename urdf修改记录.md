@@ -4,6 +4,21 @@
 
 `E:\嗜血森少\十寸轮胎版的urdf\无背包机器狗\urdf\轮足狗机器人v3.urdf`
 
+## 2026-05-12 新增 URDF 上传记录
+
+新增文件：
+
+- `urdf/thunder_smallwheel_8inch_no_exposed_harness_rs02.urdf`
+- `meshes/thunder_smallwheel_8inch/`
+
+说明：
+
+- 本次上传的 URDF 是新的线束不外露版本。
+- 轮胎尺寸已换成 8 寸。
+- 轮足电机已换成 RS02。
+- 为了让该 URDF 在当前仓库内可直接引用资源，mesh 路径已从 SolidWorks 导出的 `package://新版小轮子机器狗装配/meshes/...` 改为 `../meshes/thunder_smallwheel_8inch/...`。
+- 该文件作为新导出的 URDF 资产单独保存，未覆盖现有主资产 `urdf/thunder_v3.urdf`。
+
 ## 已修改内容
 
 ### 1. 四个 foot link 的惯性信息

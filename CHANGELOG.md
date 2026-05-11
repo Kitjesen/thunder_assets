@@ -1,5 +1,24 @@
 # Changelog
 
+## 2026-05-12 - thunder-smallwheel-8inch-no-exposed-harness-rs02
+
+Added a separate CAD-export URDF for the updated Thunder small-wheel variant.
+
+Added files:
+
+- `urdf/thunder_smallwheel_8inch_no_exposed_harness_rs02.urdf`
+- `meshes/thunder_smallwheel_8inch/`
+
+Summary:
+
+- The uploaded URDF is the new no-exposed-harness version.
+- Tire size was changed to 8 inch.
+- Wheel-foot motors were changed to RS02.
+- Mesh paths were rewritten from the SolidWorks `package://...` form to
+  repository-relative paths under `meshes/thunder_smallwheel_8inch/`.
+- The existing primary RobotLab/Isaac Lab asset `urdf/thunder_v3.urdf` was not
+  replaced by this upload.
+
 ## 2026-05-02 - cad-2026-05-02-symmetric-wheel-0131-limits
 
 This release updates the active Thunder v3 simulation asset from the previous

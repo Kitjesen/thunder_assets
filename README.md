@@ -39,10 +39,15 @@ The primary URDF intentionally keeps the RobotLab-compatible interface:
 ## Files
 
 - `urdf/thunder_v3.urdf`: current RobotLab/Isaac Lab URDF
+- `urdf/thunder_smallwheel_8inch_no_exposed_harness_rs02.urdf`: newly
+  uploaded CAD-export URDF for the no-exposed-harness version with 8 inch
+  tires and RS02 wheel-foot motors
 - `xml/thunder_v3.xml`: byte-synchronized copy for tools that expect `.xml`
 - `mjcf/thunder_v3_mujoco.xml`: MuJoCo MJCF generated from the current URDF
   for local policy rollout and sim-to-sim checks
 - `meshes/`: STL visual and collision meshes
+- `meshes/thunder_smallwheel_8inch/`: STL meshes referenced by the new
+  8 inch RS02 CAD-export URDF
 - `urdf/legacy/`: historical references only, not the active training asset
 
 Do not use the raw CAD export directly for RobotLab training. It has lowercase
