@@ -11,17 +11,17 @@ This repository keeps two generations of Thunder assets:
 
 ## Preview
 
-### Thunder v3
+### Thunder V3
 
-![Thunder v3](img/thunder_v3.png)
+![Thunder V3](img/thunder_v3.png)
 
-### Thunder v4
+### Thunder V4
 
-![Thunder v4](img/thunder_v4.png)
+![Thunder V4](img/thunder_v4.png)
 
 ## Version Comparison
 
-| Area | Thunder v3 | Thunder v4 |
+| Area | Thunder V3 | Thunder V4 |
 | --- | --- | --- |
 | Main purpose | Stable simulation asset for RobotLab / Isaac Lab | Newer CAD / ROS export for the small-wheel hardware direction |
 | Primary URDF | `thunder_v3/urdf/thunder_v3.urdf` | `thunder_v4/urdf/thunder_v4.urdf` |
@@ -33,9 +33,9 @@ This repository keeps two generations of Thunder assets:
 | MuJoCo asset | Includes `mjcf/thunder_v3_mujoco.xml` | Not generated yet |
 | Current status | Preferred asset for training / simulation work | Visual and mechanical reference, needs cleanup before training use |
 
-## What Changed in v4
+## What Changed in V4
 
-Compared with v3, Thunder v4 updates both the visual design and mechanical
+Compared with V3, Thunder V4 updates both the visual design and mechanical
 asset export:
 
 - Front perception housing changed from a box-style front sensor block to a
@@ -48,9 +48,9 @@ asset export:
   details, and labeling.
 - External harness exposure is reduced in the newer layout.
 - The wheel-foot motor direction is documented as the RS02 small-wheel variant
-  in the v3 changelog archive.
+  in the V3 changelog archive.
 
-The v4 URDF has been renamed and cleaned for repository use as
+The V4 URDF has been renamed and cleaned for repository use as
 `thunder_v4/urdf/thunder_v4.urdf`. It still keeps SolidWorks-style link and
 joint names, so target simulators may need a stack-specific naming pass before
 training or deployment.
@@ -96,7 +96,7 @@ Use `thunder_v3` when you need a stable simulation package:
 - RobotLab / Isaac Lab import
 - URDF-based dynamics checks
 - MuJoCo rollout experiments using the included MJCF file
-- Regression comparison against previous Thunder v3 assets
+- Regression comparison against previous Thunder V3 assets
 
 Use `thunder_v4` when you need the latest CAD reference:
 
@@ -105,9 +105,9 @@ Use `thunder_v4` when you need the latest CAD reference:
 - mesh and URDF source material for the next simulation conversion pass
 - ROS display / Gazebo smoke tests through the included launch files
 
-## v4 Cleanup Checklist
+## V4 Cleanup Checklist
 
-Before promoting v4 to the primary simulation asset:
+Before promoting V4 to the primary simulation asset:
 
 - Normalize link and joint names to the simulator convention used by the target
   stack.
@@ -124,13 +124,13 @@ The following basic checks have been performed on the current files:
   `48.79163 kg`.
 - `thunder_v4/urdf/thunder_v4.urdf`: 21 links, 20 joints, total
   modeled mass `45.8086 kg`.
-- Preview images exist for both v3 and v4 under `img/`.
+- Preview images exist for both V3 and V4 under `img/`.
 
 Not yet validated:
 
-- Thunder v4 import in ROS / RobotLab / Isaac Lab.
-- Thunder v4 MuJoCo conversion.
-- Policy rollout or sim-to-real behavior with the v4 asset.
+- Thunder V4 import in ROS / RobotLab / Isaac Lab.
+- Thunder V4 MuJoCo conversion.
+- Policy rollout or sim-to-real behavior with the V4 asset.
 
 ## License
 
