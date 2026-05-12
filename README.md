@@ -132,6 +132,10 @@ The following basic checks have been performed on the current files:
   modeled mass `45.8086 kg`.
 - Thunder V4 hip / thigh / calf limits are nonzero, and the four wheel-foot
   continuous joints use RS02-specific effort / velocity limits.
+- Thunder V4 inertia matrices are positive definite and pass principal-moment
+  physicality checks.
+- Thunder V4 movable joint axes match the established Thunder V3 URDF
+  direction convention; the CSV metadata is normalized to the same axis signs.
 - Preview images exist for both V3 and V4 under `img/`.
 
 Not yet validated:
