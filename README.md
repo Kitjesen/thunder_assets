@@ -1,70 +1,138 @@
-# Thunder v3 Assets
+# Thunder Robot Assets
 
-Current version: `cad-2026-05-02-symmetric-wheel-0131-limits`
+Thunder wheeled-leg robot asset package for CAD review, URDF inspection, and
+simulation integration.
 
-Primary asset: `urdf/thunder_v3.urdf`
+This repository keeps two generations of Thunder assets:
 
-This repository contains the standalone Thunder v3 wheeled-leg robot asset used
-by RobotLab and Isaac Lab.
+- `thunder_v3`: RobotLab / Isaac Lab oriented simulation asset.
+- `thunder_v4`: newer 8-inch small-wheel CAD export with updated industrial
+  design, wheel assembly, and hidden-harness layout.
 
-## What Changed
+## Preview
 
-This version updates the robot dynamics data in the primary URDF:
+### Thunder v3
 
-- Total modeled mass changed from `44.47163 kg` to `48.79163 kg`.
-- All four wheel/foot assemblies now use `1.40377 kg` mass instead of the old
-  `0.32377 kg` placeholder-style mass.
-- All four wheel/foot inertials are symmetric:
-  - right side COM: `0.00000 -0.01385 0.00000`
-  - left side COM: `0.00000 0.01385 0.00000`
-  - tensor: `ixx=0.00092`, `iyy=0.00121`, `izz=0.00092`, off-diagonal terms `0`
-- `FR_calf`, `RR_calf`, and `RR_thigh` COM and inertia tensors were corrected
-  from the May 2 CAD-derived values.
-- Leg joint position limits were aligned with the legacy 0131 reference:
-  hip joints use `[-0.4, 0.4]`, and both rear calf joints use
-  `[-3.14, 3.14]`.
-- `xml/thunder_v3.xml` was synchronized with `urdf/thunder_v3.urdf`.
-- The raw CAD export was saved at
-  `urdf/legacy/thunder_v3_cad_2026-05-02.urdf` for traceability.
+![Thunder v3](img/thunder_v3.png)
 
-The primary URDF intentionally keeps the RobotLab-compatible interface:
+### Thunder v4
 
-- canonical link names such as `FR_hip`, `FL_foot`, and `base_link`
-- canonical joint names such as `FR_hip_joint` and `RR_foot_joint`
-- relative mesh paths under `meshes/`
-- continuous wheel joints without position limits
-- leg joint effort `120` and velocity `17.48`
-- legacy 0131 leg position limits without reverting effort/velocity metadata
+![Thunder v4](img/thunder_v4.png)
 
-## Files
+## Version Comparison
 
-- `urdf/thunder_v3.urdf`: current RobotLab/Isaac Lab URDF
-- `xml/thunder_v3.xml`: byte-synchronized copy for tools that expect `.xml`
-- `mjcf/thunder_v3_mujoco.xml`: MuJoCo MJCF generated from the current URDF
-  for local policy rollout and sim-to-sim checks
-- `meshes/`: STL visual and collision meshes
-- `新版小轮子机器狗装配/`: complete ROS package for the no-exposed-harness
-  small-wheel variant, including `config/`, `launch/`, `meshes/`, `urdf/`,
-  `package.xml`, and `CMakeLists.txt`
-- `urdf/legacy/`: historical references only, not the active training asset
+| Area | Thunder v3 | Thunder v4 |
+| --- | --- | --- |
+| Main purpose | Stable simulation asset for RobotLab / Isaac Lab | Newer CAD / ROS export for the small-wheel hardware direction |
+| Primary URDF | `thunder_v3/urdf/thunder_v3.urdf` | `thunder_v4/urdf/thunder_v4.urdf` |
+| Robot model size | 21 links, 20 joints | 21 links, 20 joints |
+| Total modeled mass | `48.79163 kg` | `45.8086 kg` |
+| Wheel / foot mass | `1.40377 kg` per wheel-foot link | `0.68812 kg` per wheel-foot link |
+| Naming style | RobotLab-compatible names such as `FR_hip`, `FL_foot`, `base_link` | SolidWorks export names such as `fr_hip_link`, `fl_foot_Link` |
+| Mesh paths | Repository-relative mesh paths under `meshes/` | Repository-relative mesh paths under `meshes/` |
+| MuJoCo asset | Includes `mjcf/thunder_v3_mujoco.xml` | Not generated yet |
+| Current status | Preferred asset for training / simulation work | Visual and mechanical reference, needs cleanup before training use |
 
-Do not use the raw CAD export directly for RobotLab training. It has lowercase
-`_Link` names, package mesh paths, zero joint effort/velocity metadata, and
-wheel limit tags that can break rolling-wheel behavior.
+## What Changed in v4
 
-## Validation
+Compared with v3, Thunder v4 updates both the visual design and mechanical
+asset export:
 
-Validated for this version:
+- Front perception housing changed from a box-style front sensor block to a
+  smoother integrated nose module.
+- Side body panels now include Thunder branding, service-door geometry,
+  battery / comms / sensor labels, vent details, and caution markings.
+- Wheel assembly changed to an 8-inch small-wheel layout with a redesigned rim,
+  tire, and hub detail.
+- Leg links and actuator covers have more refined surface transitions, screw
+  details, and labeling.
+- External harness exposure is reduced in the newer layout.
+- The wheel-foot motor direction is documented as the RS02 small-wheel variant
+  in the v3 changelog archive.
 
-- parsed the primary URDF, XML copy, and raw CAD archive as XML
-- verified `21` links and `20` joints
-- verified total mass `48.79163 kg`
-- verified `urdf/thunder_v3.urdf` and `xml/thunder_v3.xml` are synchronized
-- verified wheel joints stay continuous
-- verified wheel axes, legacy 0131 leg position limits, and leg joint
-  effort/velocity metadata
+The v4 URDF has been renamed and cleaned for repository use as
+`thunder_v4/urdf/thunder_v4.urdf`. It still keeps SolidWorks-style link and
+joint names, so target simulators may need a stack-specific naming pass before
+training or deployment.
 
-Not validated:
+## Repository Layout
 
-- Isaac Lab runtime import after the GitHub push
-- policy rollout with the updated dynamics
+```text
+thunder_assets/
++-- README.md
++-- img/
+|   +-- thunder_v3.png
+|   +-- thunder_v4.png
++-- thunder_v3/
+|   +-- CHANGELOG.md
+|   +-- README.md
+|   +-- meshes/
+|   +-- mjcf/
+|   |   +-- thunder_v3_mujoco.xml
+|   +-- urdf/
+|   |   +-- thunder_v3.urdf
+|   |   +-- legacy/
+|   +-- xml/
+|       +-- thunder_v3.xml
++-- thunder_v4/
+    +-- CMakeLists.txt
+    +-- package.xml
+    +-- config/
+    |   +-- joint_names_thunder_v4.yaml
+    +-- launch/
+    |   +-- display.launch
+    |   +-- gazebo.launch
+    +-- meshes/
+    +-- textures/
+    +-- urdf/
+        +-- thunder_v4.csv
+        +-- thunder_v4.urdf
+```
+
+## Recommended Usage
+
+Use `thunder_v3` when you need a stable simulation package:
+
+- RobotLab / Isaac Lab import
+- URDF-based dynamics checks
+- MuJoCo rollout experiments using the included MJCF file
+- Regression comparison against previous Thunder v3 assets
+
+Use `thunder_v4` when you need the latest CAD reference:
+
+- visual comparison with the updated industrial design
+- small-wheel hardware review
+- mesh and URDF source material for the next simulation conversion pass
+- ROS display / Gazebo smoke tests through the included launch files
+
+## v4 Cleanup Checklist
+
+Before promoting v4 to the primary simulation asset:
+
+- Normalize link and joint names to the simulator convention used by the target
+  stack.
+- Verify inertial values, collision geometry, wheel axes, and joint limits.
+- Generate and validate a MuJoCo MJCF file if MuJoCo / Isaac Lab workflows need
+  it.
+- Run an import smoke test in the target simulator before training policies.
+
+## Current Validation Notes
+
+The following basic checks have been performed on the current files:
+
+- `thunder_v3/urdf/thunder_v3.urdf`: 21 links, 20 joints, total modeled mass
+  `48.79163 kg`.
+- `thunder_v4/urdf/thunder_v4.urdf`: 21 links, 20 joints, total
+  modeled mass `45.8086 kg`.
+- Preview images exist for both v3 and v4 under `img/`.
+
+Not yet validated:
+
+- Thunder v4 import in ROS / RobotLab / Isaac Lab.
+- Thunder v4 MuJoCo conversion.
+- Policy rollout or sim-to-real behavior with the v4 asset.
+
+## License
+
+License and redistribution terms are not defined in this folder yet. Add a
+`LICENSE` file before publishing the project publicly.
