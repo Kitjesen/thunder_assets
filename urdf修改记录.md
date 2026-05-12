@@ -8,16 +8,17 @@
 
 新增文件：
 
-- `urdf/thunder_smallwheel_8inch_no_exposed_harness_rs02.urdf`
-- `meshes/thunder_smallwheel_8inch/`
+- `新版小轮子机器狗装配/`
 
 说明：
 
 - 本次上传的 URDF 是新的线束不外露版本。
 - 轮胎尺寸已换成 8 寸。
 - 轮足电机已换成 RS02。
-- 为了让该 URDF 在当前仓库内可直接引用资源，mesh 路径已从 SolidWorks 导出的 `package://新版小轮子机器狗装配/meshes/...` 改为 `../meshes/thunder_smallwheel_8inch/...`。
-- 该文件作为新导出的 URDF 资产单独保存，未覆盖现有主资产 `urdf/thunder_v3.urdf`。
+- 已按完整 ROS 包目录上传，`config/`、`launch/`、`meshes/`、`textures/`、`urdf/`、`package.xml`、`CMakeLists.txt`、`export.log` 都放在同一目录下。
+- 包内仍保持原始 `package://新版小轮子机器狗装配/meshes/...` 引用方式，避免拆分后无法直接使用。
+- `launch/display.launch` 和 `launch/gazebo.launch` 已修正为指向实际导出的 `urdf/thunder_smallwheel(8inch).urdf`，并去掉了对缺失 `urdf.rviz` 的依赖。
+- 现有主资产 `urdf/thunder_v3.urdf` 未被这次上传覆盖。
 
 ## 已修改内容
 

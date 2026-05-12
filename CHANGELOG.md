@@ -2,20 +2,23 @@
 
 ## 2026-05-12 - thunder-smallwheel-8inch-no-exposed-harness-rs02
 
-Added a separate CAD-export URDF for the updated Thunder small-wheel variant.
+Packaged the updated Thunder small-wheel export as a complete ROS package.
 
 Added files:
 
-- `urdf/thunder_smallwheel_8inch_no_exposed_harness_rs02.urdf`
-- `meshes/thunder_smallwheel_8inch/`
+- `新版小轮子机器狗装配/`
 
 Summary:
 
 - The uploaded URDF is the new no-exposed-harness version.
 - Tire size was changed to 8 inch.
 - Wheel-foot motors were changed to RS02.
-- Mesh paths were rewritten from the SolidWorks `package://...` form to
-  repository-relative paths under `meshes/thunder_smallwheel_8inch/`.
+- The package keeps the original ROS package layout with `config/`, `launch/`,
+  `meshes/`, `urdf/`, `package.xml`, `CMakeLists.txt`, and `export.log`
+  together in one directory.
+- The copied launch files were adjusted to point to the exported URDF filename
+  `thunder_smallwheel(8inch).urdf` and no longer depend on a missing
+  `urdf.rviz` file.
 - The existing primary RobotLab/Isaac Lab asset `urdf/thunder_v3.urdf` was not
   replaced by this upload.
 
