@@ -55,6 +55,12 @@ The V4 URDF has been renamed and cleaned for repository use as
 joint names, so target simulators may need a stack-specific naming pass before
 training or deployment.
 
+The V4 wheel-foot joints use separate RS02 motor limits instead of the larger
+leg-actuator placeholder limits: `effort=17` and `velocity=44` on the four
+continuous foot joints. These values are based on the RobStride RS02 manual's
+maximum torque and speed feedback ranges:
+https://www.robstride.com/assets/product_manual_robStride02-e7f9f7c4.pdf.
+
 ## Repository Layout
 
 ```text
@@ -124,6 +130,8 @@ The following basic checks have been performed on the current files:
   `48.79163 kg`.
 - `thunder_v4/urdf/thunder_v4.urdf`: 21 links, 20 joints, total
   modeled mass `45.8086 kg`.
+- Thunder V4 hip / thigh / calf limits are nonzero, and the four wheel-foot
+  continuous joints use RS02-specific effort / velocity limits.
 - Preview images exist for both V3 and V4 under `img/`.
 
 Not yet validated:

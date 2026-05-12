@@ -303,8 +303,8 @@
     <axis
       xyz="0 1 0" />
     <limit
-      effort="120"
-      velocity="17.48" />
+      effort="17"
+      velocity="44" />
   </joint>
   <link
     name="fl_hip_Link">
@@ -545,8 +545,8 @@
     <axis
       xyz="0 -1 0" />
     <limit
-      effort="120"
-      velocity="17.48" />
+      effort="17"
+      velocity="44" />
   </joint>
   <link
     name="rr_hip_Link">
@@ -787,8 +787,8 @@
     <axis
       xyz="0 1 0" />
     <limit
-      effort="120"
-      velocity="17.48" />
+      effort="17"
+      velocity="44" />
   </joint>
   <link
     name="rl_hip_Link">
@@ -1029,8 +1029,8 @@
     <axis
       xyz="0 -1 0" />
     <limit
-      effort="120"
-      velocity="17.48" />
+      effort="17"
+      velocity="44" />
   </joint>
   <link
     name="lidar1_Link">
