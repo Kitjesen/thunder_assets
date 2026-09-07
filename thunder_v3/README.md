@@ -51,6 +51,20 @@ Do not use the raw CAD export directly for RobotLab training. It has lowercase
 `_Link` names, package mesh paths, zero joint effort/velocity metadata, and
 wheel limit tags that can break rolling-wheel behavior.
 
+## MuJoCo contact friction
+
+`mjcf/thunder_v3_mujoco.xml` explicitly sets geom friction to
+`1.0 0.005 0.0001`: sliding, torsional, then rolling friction. These are the
+previously inherited MuJoCo defaults, now recorded in the asset itself.
+The named `thunder_v3_contact` class applies to the robot subtree and its
+supplied ground; it does not become a global material for imported worlds.
+The wheels keep their existing `condim=3` contacts; torsional and rolling
+coefficients only become active for contact dimensions 4 and 6 respectively.
+
+URDF imports in Isaac Lab or Gazebo use those simulators' material settings;
+the MJCF declaration does not configure their contact materials. See the
+repository [contact material notes](../README.md#contact-materials).
+
 ## Validation
 
 Validated for this version:

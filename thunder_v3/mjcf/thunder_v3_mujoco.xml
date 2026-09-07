@@ -1,12 +1,17 @@
 <?xml version='1.0' encoding='utf-8'?>
 <mujoco model="thunder_v3_mujoco">
   <compiler angle="radian" />
+  <default>
+    <default class="thunder_v3_contact">
+      <geom friction="1.0 0.005 0.0001" />
+    </default>
+  </default>
   <option timestep="0.001" iterations="50" solver="PGS" gravity="0 0 -9.81">
     <flag frictionloss="enable" sensor="enable" />
   </option>
   <worldbody>
-    <geom name="ground" type="plane" size="0 0 1" pos="0 0 0" quat="1 0 0 0" condim="1" conaffinity="15" rgba="0.2 0.3 0.4 1" />
-    <body name="base_link" pos="0 0 0.55">
+    <geom name="ground" class="thunder_v3_contact" type="plane" size="0 0 1" pos="0 0 0" quat="1 0 0 0" condim="1" conaffinity="15" rgba="0.2 0.3 0.4 1" />
+    <body name="base_link" childclass="thunder_v3_contact" pos="0 0 0.55">
       <site name="imu" size="0.01" pos="0 0 0" quat="1 0 0 0" />
       <inertial pos="-0.000838877 0.00711738 0.0765547" quat="0.54586 0.445843 0.55522 0.441579" mass="18.8369" diaginertia="0.647112 0.602654 0.248431" />
       <joint name="floating_base_joint" type="free" />
