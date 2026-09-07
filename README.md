@@ -61,6 +61,38 @@ continuous foot joints. These values are based on the RobStride RS02 manual's
 maximum torque and speed feedback ranges:
 https://www.robstride.com/assets/product_manual_robStride02-e7f9f7c4.pdf.
 
+## Contact Materials
+
+| Asset | Contact friction source |
+| --- | --- |
+| V3 MuJoCo MJCF | Explicit geom friction `1.0 0.005 0.0001` |
+| V3 and V4 URDF | No contact material declared; configure the target simulator |
+
+For MuJoCo, the three values mean sliding friction `1.0` (dimensionless),
+torsional friction `0.005 m`, and rolling friction `0.0001 m`. The V3 MJCF
+retains its existing contact dimensions: wheel contacts use `condim=3`, so
+torsional and rolling friction are not active. This explicit declaration
+preserves the asset's previously compiled friction values.
+The material class is scoped to the V3 robot subtree and supplied ground,
+leaving other world geometry's material settings under the world's control.
+
+For a V4 MuJoCo conversion, set the wheel material in the resulting MJCF.
+When matching the corrected LingTu setup, use `friction="1.0 0.005 0.0001"`
+and `condim="4"` on wheel collisions. Check the compiled wheel/ground contact,
+because an explicit wheel attribute overrides its material class and a ground
+geom can raise the combined contact friction. Keep world material defaults
+separate from generic robot collision materials.
+
+The V4 URDF is not a MuJoCo material file. Isaac Lab training configures its
+physics materials in the environment, and Gazebo uses its own material
+configuration. Do not copy MuJoCo's torsional/rolling values into another
+simulator without checking its parameter meanings and units. These values are
+a simulation configuration, not measured tire/ground calibration.
+
+See MuJoCo's [geom friction reference](https://mujoco.readthedocs.io/en/stable/XMLreference.html#body-geom-friction)
+and [contact parameter combination](https://mujoco.readthedocs.io/en/stable/modeling.html#contact-parameters),
+and the downstream [LingTu correction](https://github.com/Kitjesen/MapPilot/pull/22).
+
 ## Repository Layout
 
 ```text
