@@ -3,11 +3,12 @@
 Thunder wheeled-leg robot asset package for CAD review, URDF inspection, and
 simulation integration.
 
-This repository keeps two generations of Thunder assets:
+**Thunder V4 is the current robot version.** This repository keeps V3 for
+historical policy compatibility and regression comparisons.
 
-- `thunder_v3`: RobotLab / Isaac Lab oriented simulation asset.
-- `thunder_v4`: newer 8-inch small-wheel CAD export with updated industrial
-  design, wheel assembly, and hidden-harness layout.
+- `thunder_v4`: current small-wheel robot, with canonical URDF, CAD meshes,
+  and a loadable MuJoCo model. See the [V4 definition](thunder_v4/README.md).
+- `thunder_v3`: previous-generation RobotLab / Isaac Lab and MuJoCo assets.
 
 ## Preview
 
@@ -23,15 +24,15 @@ This repository keeps two generations of Thunder assets:
 
 | Area | Thunder V3 | Thunder V4 |
 | --- | --- | --- |
-| Main purpose | Stable simulation asset for RobotLab / Isaac Lab | Newer CAD / ROS export for the small-wheel hardware direction |
+| Main purpose | Previous-generation simulation and policy compatibility | Current small-wheel robot and simulation asset |
 | Primary URDF | `thunder_v3/urdf/thunder_v3.urdf` | `thunder_v4/urdf/thunder_v4.urdf` |
 | Robot model size | 21 links, 20 joints | 21 links, 20 joints |
 | Total modeled mass | `48.79163 kg` | `45.8086 kg` |
 | Wheel / foot mass | `1.40377 kg` per wheel-foot link | `0.68812 kg` per wheel-foot link |
 | Naming style | RobotLab-compatible names such as `FR_hip`, `FL_foot`, `base_link` | SolidWorks export names such as `fr_hip_link`, `fl_foot_Link` |
 | Mesh paths | Repository-relative mesh paths under `meshes/` | Repository-relative mesh paths under `meshes/` |
-| MuJoCo asset | Includes `mjcf/thunder_v3_mujoco.xml` | Not generated yet |
-| Current status | Preferred asset for training / simulation work | Visual and mechanical reference, needs cleanup before training use |
+| MuJoCo asset | `thunder_v3/mjcf/thunder_v3_mujoco.xml` | `thunder_v4/mjcf/thunder_v4_mujoco.xml` |
+| Current status | Legacy comparison asset | Current V4 definition; MuJoCo import and contact contract checked |
 
 ## What Changed in V4
 
@@ -52,8 +53,8 @@ asset export:
 
 The V4 URDF has been renamed and cleaned for repository use as
 `thunder_v4/urdf/thunder_v4.urdf`. It still keeps SolidWorks-style link and
-joint names, so target simulators may need a stack-specific naming pass before
-training or deployment.
+joint names. The supplied V4 MJCF uses RobotLab-compatible names such as
+`FR_hip_joint`, while preserving V4 geometry, mass, axes, and limits.
 
 The V4 wheel-foot joints use separate RS02 motor limits instead of the larger
 leg-actuator placeholder limits: `effort=17` and `velocity=44` on the four
@@ -65,6 +66,7 @@ https://www.robstride.com/assets/product_manual_robStride02-e7f9f7c4.pdf.
 
 | Asset | Contact friction source |
 | --- | --- |
+| Current V4 MuJoCo MJCF | Scoped wheel and supplied-ground friction `1.0 0.005 0.0001`, `condim=4` |
 | V3 MuJoCo MJCF | Explicit geom friction `1.0 0.005 0.0001` |
 | V3 and V4 URDF | No contact material declared; configure the target simulator |
 
@@ -76,12 +78,13 @@ preserves the asset's previously compiled friction values.
 The material class is scoped to the V3 robot subtree and supplied ground,
 leaving other world geometry's material settings under the world's control.
 
-For a V4 MuJoCo conversion, set the wheel material in the resulting MJCF.
-When matching the corrected LingTu setup, use `friction="1.0 0.005 0.0001"`
-and `condim="4"` on wheel collisions. Check the compiled wheel/ground contact,
-because an explicit wheel attribute overrides its material class and a ground
-geom can raise the combined contact friction. Keep world material defaults
-separate from generic robot collision materials.
+The V4 definition is consumed directly by
+[`thunder_v4_mujoco.xml`](thunder_v4/mjcf/thunder_v4_mujoco.xml). Its four wheel
+collisions inherit `thunder_v4_rubber_wheel`, and its supplied ground uses the
+scoped `thunder_v4` class. With `condim=4`, sliding and torsional friction are
+active; rolling friction is declared but inactive. An external world retains
+its own material settings. Check actual combined wheel/ground contacts when
+changing worlds, since a ground geom can raise the combined friction.
 
 The V4 URDF is not a MuJoCo material file. Isaac Lab training configures its
 physics materials in the environment, and Gazebo uses its own material
@@ -113,6 +116,7 @@ thunder_assets/
 |   +-- xml/
 |       +-- thunder_v3.xml
 +-- thunder_v4/
+    +-- README.md
     +-- CMakeLists.txt
     +-- package.xml
     +-- config/
@@ -121,6 +125,8 @@ thunder_assets/
     |   +-- display.launch
     |   +-- gazebo.launch
     +-- meshes/
+    +-- mjcf/
+    |   +-- thunder_v4_mujoco.xml
     +-- textures/
     +-- urdf/
         +-- thunder_v4.csv
@@ -129,30 +135,26 @@ thunder_assets/
 
 ## Recommended Usage
 
-Use `thunder_v3` when you need a stable simulation package:
-
-- RobotLab / Isaac Lab import
-- URDF-based dynamics checks
-- MuJoCo rollout experiments using the included MJCF file
-- Regression comparison against previous Thunder V3 assets
-
-Use `thunder_v4` when you need the latest CAD reference:
+Use `thunder_v4` for current robot work:
 
 - visual comparison with the updated industrial design
 - small-wheel hardware review
-- mesh and URDF source material for the next simulation conversion pass
+- URDF integration and MuJoCo simulation using the supplied V4 MJCF
 - ROS display / Gazebo smoke tests through the included launch files
 
-## V4 Cleanup Checklist
+Use `thunder_v3` when reproducing a V3-trained policy or comparing against
+previous-generation assets. Selecting V4 does not automatically make an old
+policy compatible with its geometry or controller contract.
 
-Before promoting V4 to the primary simulation asset:
+## V4 Integration
 
-- Normalize link and joint names to the simulator convention used by the target
-  stack.
-- Verify inertial values, collision geometry, wheel axes, and joint limits.
-- Generate and validate a MuJoCo MJCF file if MuJoCo / Isaac Lab workflows need
-  it.
-- Run an import smoke test in the target simulator before training policies.
+V4 is the current asset version. For each controller integration:
+
+- Match the policy's observation/action order, gains, timing, and training asset.
+- Keep the current URDF's `0.095 m` wheel radius distinct from the `0.093 m`
+  radius in LingTu's previously qualified policy asset.
+- Run a rollout for the selected policy and simulator before claiming motion
+  performance. The asset does not embed a locomotion controller.
 
 ## Current Validation Notes
 
@@ -169,12 +171,16 @@ The following basic checks have been performed on the current files:
 - Thunder V4 movable joint axes match the established Thunder V3 URDF
   direction convention; the CSV metadata is normalized to the same axis signs.
 - Preview images exist for both V3 and V4 under `img/`.
+- The V4 MJCF compiles in MuJoCo 3.10.0 with a free base, 16 actuators, and
+  total modeled mass `45.8086 kg`; wheel geometry and joint limits match the URDF.
+- All four V4 wheel/ground contacts use `condim=4` and torsional friction
+  `0.005 m`. Scoped V4 defaults preserve an external world's material.
 
 Not yet validated:
 
 - Thunder V4 import in ROS / RobotLab / Isaac Lab.
-- Thunder V4 MuJoCo conversion.
-- Policy rollout or sim-to-real behavior with the V4 asset.
+- Policy rollout with this repository's `0.095 m` V4 MJCF, or its sim-to-real
+  behavior. LingTu's `0.093 m` rollout results do not qualify this geometry.
 
 ## License
 
